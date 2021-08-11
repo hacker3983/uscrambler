@@ -69,7 +69,7 @@ bool exist(char* str, char c) {
 int main() {
 	string_t list = file_readlines("wordlist.txt");
 	int i=0, pos = 1, start=0;
-	char* word = readline("Enter a word: ");
+	char* word = input("Enter a word: ");
 	char_tolower(word);
 	while(1) {
 		char* str = list.strings[i];
