@@ -1,4 +1,5 @@
-#ifndef _STRING_H
+#ifndef STRING_LIST_H
+#define STRING_LIST_H
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>

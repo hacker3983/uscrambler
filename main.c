@@ -1,25 +1,33 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "string.h"
+#if __has_include(<readline/readline.h>)
 #include <readline/readline.h>
 #include <readline/history.h>
+#endif
 #include "char.h"
 
 char* input(char* prompt) {
-	char* buff = calloc(1, sizeof(char*)), c;
+	char* buff, c;
 	size_t size = 0;
-	printf("%s", prompt);
-	while((c = tolower(fgetc(stdin)))) {
-		if(c == '\n') {
-			break;
+	#ifdef _READLINE_H_
+		buff = readline(prompt);
+	#else
+		printf("%s", prompt);
+		buff = calloc(1, sizeof(char*));
+		while((c = tolower(fgetc(stdin)))) {
+			if(c == '\n') {
+				break;
+			}
+			buff[size] = c;
+			size++;
+			char* temp = buff;
+			buff = calloc(size+1, sizeof(char*));
+			strcpy(buff, temp);
+			free(temp);
 		}
-		buff[size] = c;
-		size++;
-		char* temp = buff;
-		buff = calloc(size+1, sizeof(char*));
-		strcpy(buff, temp);
-		free(temp);
-	}
+	#endif
 	return buff;
 }
 
